@@ -7,27 +7,27 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract mintRoomNFT is ERC721Enumerable {
     string public metadataURI;
-    uint public totalNFT;
+    uint256 public totalNFT;
     
-    constructor(string memory _name, string memory _symbol, string memory _metadataURI, uint _totalNFT) ERC721(_name, _symbol) {
+    constructor(string memory _name, string memory _symbol, string memory _metadataURI, uint256 _totalNFT) ERC721(_name, _symbol) {
         metadataURI = _metadataURI;
         totalNFT = _totalNFT;
     }
  
     function mintRooms() public {
         require(totalNFT > totalSupply(), "No more minting..");
-        uint tokenId = totalSupply() + 1;
+        uint256 tokenId = totalSupply() + 1;
 
         _mint(msg.sender, tokenId);
     }
 
-    function batchMint(uint _amount) public {
-        for(uint i = 0; i < _amount; i++) {
+    function batchMint(uint256 _amount) public {
+        for(uint256 i = 0; i < _amount; i++) {
             mintRooms();
         }
     }
 
-    function tokenURI(uint _tokenId) public override view returns(string memory) {
+    function tokenURI(uint256 _tokenId) public override view returns(string memory) {
         return string(abi.encodePacked(metadataURI, '/', Strings.toString(_tokenId), '.json'));
     }
 }
