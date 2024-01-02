@@ -34,8 +34,8 @@ const LoginForMetamask = () => {
         .send({ from: account });
       if(mintNFT.status) {
         const balanceOf = await mintContract.methods.balanceOf(Number(account)).call();
-        const tokenByIndex = await mintContract.methods.tokenByIndex(balanceOf - 1).call();
-        const tokenURI = await mintContract.methods.tokenURI(tokenByIndex).call();
+        const tokenOfOwnerByIndex = await mintContract.methods.tokenOfOwnerByIndex(account, balanceOf - 1).call();
+        const tokenURI = await mintContract.methods.tokenURI(tokenOfOwnerByIndex).call();
 
         console.log(tokenURI)
       }
