@@ -43,8 +43,8 @@ const App = () => {
         const tokenURI = await mintContract.methods.tokenURI(tokenOfOwnerByIndex).call();
         // 여기까지 NFT에 관한 json URL 을 불러오는 과정이다
         const response = await axios.get(tokenURI);
-        console.log(tokenURI);
-        console.log(response.data.image);
+        console.log(response);
+      
       }
     } catch(err) {
       console.log(err);

@@ -30,14 +30,4 @@ contract mintRoomNFT is ERC721Enumerable {
     function tokenURI(uint256 _tokenId) public override view returns(string memory) {
         return string(abi.encodePacked(metadataURI, '/', Strings.toString(_tokenId), '.json'));
     }
-
-    function getNFTs(address _owner) public view returns(uint256[] memory) {
-        require(balanceOf(_owner) > 0, "Owner DOESN'T have NFTs.");
-        uint256[] memory myNFTs = new uint256[](balanceOf(_owner));
-
-        for (uint256 i = 0;i < balanceOf(_owner); i++) {
-            myNFTs[i] = tokenOfOwnerByIndex(_owner, i);
-        }
-        return myNFTs;
-    }
 }
