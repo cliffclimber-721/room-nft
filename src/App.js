@@ -6,7 +6,7 @@ import { MINT_NFT_ABI, MINT_NFT_CONTRACT } from './web3.config';
 const web3 = new Web3(window.ethereum);
 const mintContract = new web3.eth.Contract(MINT_NFT_ABI, MINT_NFT_CONTRACT);
 
-const LoginForMetamask = () => {
+const App = () => {
   const [account, setAccount] = useState("");
   
   const getAccount = async() => {
@@ -32,12 +32,12 @@ const LoginForMetamask = () => {
       const mintNFT = await mintContract.methods
         .mintRooms()
         .send({ from: account });
+      
       if(mintNFT.status) {
-        const balanceOf = await mintContract.methods.balanceOf(Number(account)).call();
-        const tokenOfOwnerByIndex = await mintContract.methods.tokenOfOwnerByIndex(account, balanceOf - 1).call();
+        const balanceOf = await mintContract.methods.balanceOf(account).call();
+        const tokenOfOwnerByIndex = await mintContract.methods.tokenOfOwnerByIndex(account, (Number(balanceOf) - 1)).call();
         const tokenURI = await mintContract.methods.tokenURI(tokenOfOwnerByIndex).call();
-
-        console.log(tokenURI)
+        console.log(tokenURI);
       }
     } catch(err) {
       console.log(err);
@@ -80,4 +80,4 @@ const LoginForMetamask = () => {
     );
 };
 
-export default LoginForMetamask;
+export default App;
